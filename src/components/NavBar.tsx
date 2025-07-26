@@ -73,7 +73,7 @@ const NavBar: React.FC = () => {
                 {signedIn && !isAuthLoading && user && (
                     <>
                         <div className="navbar-text text-white ml-3">
-                            Welcome, {user.name}!
+                            Welcome, {user.email}!
                         </div>
                         <button
                             className="btn btn-outline-danger my-2 my-sm-0 ml-3"

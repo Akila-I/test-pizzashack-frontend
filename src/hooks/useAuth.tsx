@@ -3,7 +3,8 @@ import type { ReactNode } from 'react';
 
 // Define the user interface
 interface User {
-  name: string;
+  first_name: string;
+  last_name: string;
   email?: string;
   id?: string;
   // Add other user properties as needed
