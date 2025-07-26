@@ -15,7 +15,7 @@ const Menu: React.FC = () => {
     useEffect(() => {
       setMessage('Welcome to the Menu! Here are our delicious offerings:');
       if (signedIn && user) {
-        setMessage(`Hello ${user.name}, here is the menu for you!`);
+        setMessage(`Hello ${user.first_name}, here is the menu for you!`);
         getMenu().then(response => {
           if (response.data && response.data.length > 0) {
             menuItems.push(...response.data);
@@ -29,6 +29,12 @@ const Menu: React.FC = () => {
       } else if (!user || !signedIn) {
         setMessage('Please sign in to view the menu.');
       }
+      // Temporary menu items for testing
+      menuItems.push(
+        { name: 'Margherita Pizza', description: 'Classic pizza with tomato sauce and mozzarella cheese.' },
+        { name: 'Pepperoni Pizza', description: 'Spicy pepperoni with mozzarella cheese and tomato sauce.' },
+        { name: 'Vegetarian Pizza', description: 'Loaded with fresh vegetables and mozzarella cheese.' }
+      );
     }, [signedIn, user]);
 
     return (
