@@ -8,7 +8,7 @@ interface OrderItem {
     price: number;
 }
 
-const apiUrl = (window as any)?.configs?.apiUrl ?? "/";
+const apiUrl = '/choreo-apis/wso2-con/pizza-shack-backend/v1';
 
 export async function getOrders() {
   const options = {

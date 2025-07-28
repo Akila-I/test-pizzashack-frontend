@@ -1,7 +1,7 @@
 import type { AxiosResponse } from "axios";
 import { performRequest } from "./request-wrapper";
 
-const apiUrl = (window as any)?.configs?.apiUrl ?? "/";
+const apiUrl = '/choreo-apis/wso2-con/pizza-shack-backend/v1';
 
 export async function getSuggestions(input: string) {
   const options = {
