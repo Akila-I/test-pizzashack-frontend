@@ -38,16 +38,19 @@ const Suggestions = () => {
 
   return (
     <div className="container" style={{ marginTop: '10vh' }}>
-      <div className="card">
-        <div className="card-body">
-          <form>
-            <div className="form-group">
-              <textarea className="form-control" id="suggestionInput" rows={3} placeholder="Enter your food preference; We will suggest the best pizza for you..."></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>Ask from AI</button>
-          </form>
+      <div className="card-columns"></div>
+      {user && signedIn &&
+        <div className="card">
+          <div className="card-body">
+            <form>
+              <div className="form-group">
+                <textarea className="form-control" id="suggestionInput" rows={3} placeholder="Enter your food preference; We will suggest the best pizza for you..."></textarea>
+              </div>
+              <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>Ask from AI</button>
+            </form>
+          </div>
         </div>
-      </div>
+      }
       {suggestions && suggestions.length > 0 && 
         <div className="alert alert-info" style={{ marginTop: '20px', fontSize: '1.2em', fontWeight: 'bold' }}>
           {suggestions}
