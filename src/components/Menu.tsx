@@ -10,7 +10,7 @@ interface MenuItem {
 }
 
 const Menu: React.FC = () => {
-    const [menuItems] = useState<MenuItem[]>([]);
+    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
     const [message, setMessage] = useState<string>('');
     const { user, signedIn } = useAuth();
 
@@ -21,7 +21,7 @@ const Menu: React.FC = () => {
         getMenu().then(response => {
           console.log('Menu response:', response.data);
           if (response.data && response.data.length > 0) {
-            menuItems.push(...response.data);
+            setMenuItems(response.data);
           } else {
             setMessage('No menu items available at the moment.');
           }

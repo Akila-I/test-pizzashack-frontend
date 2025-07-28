@@ -9,7 +9,7 @@ const Suggestions = () => {
 
   useEffect(() => {
     setMessage('Welcome to the Menu! Here are our delicious offerings:');
-    if (signedIn && user) {
+    if (signedIn && user && suggestions.length === 0) {
       setMessage(`Hello ${user.first_name}, here is the AI suggestion box for you!`);
     } else if (!user || !signedIn) {
       setMessage('Please sign in to view the AI suggestions.');
