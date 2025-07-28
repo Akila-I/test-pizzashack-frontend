@@ -3,8 +3,10 @@ import { useAuth } from '../hooks/useAuth.tsx';
 import { getMenu } from '../api/get-menu';
 
 interface MenuItem {
+    code: string;
     name: string;
     description: string;
+    price: number;
 }
 
 const Menu: React.FC = () => {
@@ -29,31 +31,32 @@ const Menu: React.FC = () => {
       } else if (!user || !signedIn) {
         setMessage('Please sign in to view the menu.');
       }
-      // Temporary menu items for testing
-      menuItems.push(
-        { name: 'Margherita Pizza', description: 'Classic pizza with tomato sauce and mozzarella cheese.' },
-        { name: 'Pepperoni Pizza', description: 'Spicy pepperoni with mozzarella cheese and tomato sauce.' },
-        { name: 'Vegetarian Pizza', description: 'Loaded with fresh vegetables and mozzarella cheese.' }
-      );
     }, [signedIn, user]);
 
     return (
-        <div className="container">
-            {message && <div className="alert alert-info">{message}</div>}
+        <div className="container" style={{ marginTop: '10vh' }}>
             <div className="card-columns">
                 {menuItems.length === 0 && !message && <p>Loading menu...</p>}
                 {
                     menuItems && menuItems.map((item: MenuItem) => (
-                        <div key={item.name} className="card">
+                        <div key={item.code} className="card">
                             <div className="card-header">{item.name}</div>
                             <div className="card-body">
                                 <p className="card-text">{item.description}</p>
-                                <a href="#" className="btn btn-primary">More...</a>
+                                <p className="card-text"><strong>Price: ${item.price.toFixed(2)}</strong></p>
+                            </div>
+                            <div className="card-footer">
+                                <a href="#" className="btn btn-primary">Order</a>
                             </div>
                         </div>
                     ))
                 }
             </div>
+            {message && message.length > 0 && 
+              <div className="alert alert-info" style={{ marginTop: '20px', fontSize: '1.2em', fontWeight: 'bold' }}>
+                {message}
+              </div>
+            }
         </div>
     );
 };
