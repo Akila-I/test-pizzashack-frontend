@@ -86,6 +86,12 @@ const NavBar: React.FC = () => {
                             type="button"
                             onClick={async () => {
                                 window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`;
+                                // Clear user session
+                                setSignedIn(false);
+                                setUser(null);
+                                sessionStorage.removeItem("userInfo");
+                                Cookies.remove('userinfo');
+                                toast.success('You have been logged out successfully.');
                             }}
                         >
                             Logout
