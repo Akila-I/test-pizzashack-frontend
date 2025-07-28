@@ -16,5 +16,6 @@ export async function getMenu() {
   };
 
   const response = await performRequest(`${apiUrl}/menu`, options);
-  return response?.data as AxiosResponse<MenuItem[]>;
+  console.log('Menu response:', response);
+  return response?.data?.data as AxiosResponse<MenuItem[]>;
 }
