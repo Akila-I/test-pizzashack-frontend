@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth.tsx';
-import { getOrders } from '../api/get-orders';
+import { getOrders, deleteOrder } from '../api/get-orders';
 
 interface OrderItem {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
+    id: number;
+    orderId: string;
+    customerName: string;
+    items: string[];
+    createdAt: string;
+    updatedAt: string;
 }
 const Orders = () => {
-  const [orderItems] = useState<OrderItem[]>([]);
+  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
     const [message, setMessage] = useState<string>('');
     const { user, signedIn } = useAuth();
 
@@ -19,7 +21,7 @@ const Orders = () => {
         setMessage(`Hello ${user.first_name}, here are your current orders:`);
         getOrders().then(response => {
           if (response.data && response.data.length > 0) {
-            orderItems.push(...response.data);
+            setOrderItems(response.data);
           } else {
             setMessage('No orders available at the moment.');
           }
@@ -32,6 +34,16 @@ const Orders = () => {
       }
     }, [signedIn, user]);
 
+  const handleDelete = (orderId: string) => {
+    deleteOrder(orderId).then(response => {
+      console.log(`Order ${orderId} deleted successfully:`, response);
+      setOrderItems(prevItems => prevItems.filter(item => item.orderId !== orderId));
+    }).catch(error => {
+      console.error(`Error deleting order ${orderId}:`, error);
+      setMessage(`Failed to delete order ${orderId}. Please try again later.`);
+    });
+  };
+
   return (
       <div className="container" style={{ marginTop: '10vh' }}>
           <div className="card-columns">
@@ -39,13 +51,13 @@ const Orders = () => {
               {
                   orderItems && orderItems.map((item: OrderItem) => (
                       <div key={item.id} className="card">
-                          <div className="card-header">{item.name}</div>
+                          <div className="card-header">{item.orderId}</div>
                           <div className="card-body">
-                              <p className="card-text">{item.description}</p>
-                              <p className="card-text"><strong>Price: ${item.price.toFixed(2)}</strong></p>
+                              <p className="card-text">{item.items.join(',')}</p>
+                              <p className="card-text"><strong>Ordered On {item.createdAt}</strong></p>
                           </div>
                           <div className="card-footer">
-                              <a href="#" className="btn btn-danger">Delete Order</a>
+                              <a href="#" className="btn btn-danger" onClick={() => handleDelete(item.orderId)}>Delete Order</a>
                           </div>
                       </div>
                   ))

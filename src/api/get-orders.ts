@@ -1,13 +1,6 @@
 import type { AxiosResponse } from "axios";
 import { performRequest } from "./request-wrapper";
 
-interface OrderItem {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-}
-
 const apiUrl = '/choreo-apis/wso2-con/pizza-shack-backend/v1';
 
 export async function getOrders() {
@@ -15,7 +8,17 @@ export async function getOrders() {
     method: 'GET',
   };
 
-  const response = await performRequest(`${apiUrl}/orders/`, options);
+  const response = await performRequest(`${apiUrl}/order/`, options);
   console.log('Orders response from API:', response);
-  return response as AxiosResponse<OrderItem[]>;
+  return response as AxiosResponse<any>;
+}
+
+export async function deleteOrder(orderId: string) {
+  const options = {
+    method: 'DELETE',
+  };
+
+  const response = await performRequest(`${apiUrl}/order/${orderId}`, options);
+  console.log(`Delete order response for ${orderId}:`, response);
+  return response as AxiosResponse<any>;
 }
