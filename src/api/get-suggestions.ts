@@ -7,7 +7,7 @@ export async function getSuggestions(input: string) {
   const options = {
     method: 'POST',
     data: { 
-      "preferences": input
+      "preference": input
     },
   };
 
