@@ -20,5 +20,31 @@ export async function deleteOrder(orderId: string) {
 
   const response = await performRequest(`${apiUrl}/order/${orderId}`, options);
   console.log(`Delete order response for ${orderId}:`, response);
+  return response?.data as AxiosResponse<any>;
+}
+
+interface MenuItem {
+    code: string;
+    name: string;
+    description: string;
+    price: number;
+}
+
+export async function addOrder(firstName: string | undefined, lastName: string | undefined, item: MenuItem) {
+  const orderBody = {
+    customerName: `${firstName} ${lastName}`,
+    items: [item.name],
+  };
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: JSON.stringify(orderBody),
+  };
+
+  const response = await performRequest(`${apiUrl}/order/`, options);
+  console.log('Add order response:', response);
   return response as AxiosResponse<any>;
 }

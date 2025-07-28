@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth.tsx';
 import { getMenu } from '../api/get-menu';
+import { addOrder } from '../api/get-orders';
 
 interface MenuItem {
     code: string;
@@ -34,6 +35,21 @@ const Menu: React.FC = () => {
       }
     }, [signedIn, user]);
 
+    const handleOrder = (item: MenuItem) => {
+        console.log('Order placed for:', item);
+        const confirmOrder = window.confirm(`Are you sure you want to order ${item.name} for $${item.price.toFixed(2)}?`);
+        if (confirmOrder) {
+          addOrder(user?.first_name, user?.last_name, item).then(response => {
+            console.log('Order placed successfully:', response);
+            setMessage(`Your order for ${item.name} has been placed successfully!`);
+          }).catch(error => {
+            console.error('Error placing order:', error);
+            setMessage(`Failed to place order for ${item.name}. Please try again later.`);
+          });
+        }
+
+    };
+
     return (
         <div className="container" style={{ marginTop: '10vh' }}>
             <div className="card-columns">
@@ -47,7 +63,7 @@ const Menu: React.FC = () => {
                                 <p className="card-text"><strong>Price: ${item.price.toFixed(2)}</strong></p>
                             </div>
                             <div className="card-footer">
-                                <a href="#" className="btn btn-primary">Order</a>
+                                <a href="#" className="btn btn-primary" onClick={() => handleOrder(item)}>Order</a>
                             </div>
                         </div>
                     ))
