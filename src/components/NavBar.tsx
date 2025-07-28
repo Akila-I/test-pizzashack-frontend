@@ -58,6 +58,9 @@ const NavBar: React.FC = () => {
                     <li className="nav-item">
                         <Link className="nav-link" to="/menu">Menu</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/orders">Orders</Link>
+                    </li>
                 </ul>
                 { isAuthLoading && (
                     <div className="spinner-border text-white" role="status">
