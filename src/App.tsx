@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Menu from './components/Menu';
 import Orders from './components/Orders';
+import Suggestions from './components/Suggestions';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path='/menu' element={<Menu />} />
           <Route path='/orders' element={<Orders />} />
+          <Route path='/suggestions' element={<Suggestions />} />
           <Route path='*' element={<div>Page Not Found</div>} />
         </Routes>
         <ToastContainer 
