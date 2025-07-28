@@ -25,8 +25,9 @@ const Suggestions = () => {
       return;
     }
     getSuggestions(suggestionInput).then(response => {
-      if (response.data && response.data.length > 0) {
-        setSuggestions(response.data);
+      console.log('Suggestions response:', response);
+      if (response.data.suggestion && response.data.suggestion.length > 0) {
+        setSuggestions(response.data.suggestion);
       } else {
         setSuggestions('Failed to get your pizza suggestion. Please try again later.');
       }

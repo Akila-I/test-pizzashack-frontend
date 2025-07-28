@@ -19,6 +19,7 @@ const Menu: React.FC = () => {
       if (signedIn && user) {
         setMessage(`Hello ${user.first_name}, here is the menu for you!`);
         getMenu().then(response => {
+          console.log('Menu response:', response.data);
           if (response.data && response.data.length > 0) {
             menuItems.push(...response.data);
           } else {

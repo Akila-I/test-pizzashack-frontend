@@ -15,7 +15,7 @@ export async function getOrders() {
     method: 'GET',
   };
 
-  const response = await performRequest(`${apiUrl}/orders`, options);
+  const response = await performRequest(`${apiUrl}/orders/`, options);
   console.log('Orders response:', response);
   return response as AxiosResponse<OrderItem[]>;
 }

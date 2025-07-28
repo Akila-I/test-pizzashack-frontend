@@ -12,6 +12,6 @@ export async function getSuggestions(input: string) {
   };
 
   const response = await performRequest(`${apiUrl}/ai/suggest`, options);
-  console.log('Suggestions response:', response);
-  return response?.data?.suggestion as AxiosResponse<string>;
+  console.log('Suggestions response from API:', response);
+  return response as AxiosResponse<any>;
 }
